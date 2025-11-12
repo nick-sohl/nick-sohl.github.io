@@ -1,11 +1,11 @@
 {
-  "name": "accessible-astro-starter",
-  "description": "An Accessible Starter Theme for Astro including several accessibility features and tools to help you build faster.",
+  "name": "my-personal-site",
+  "description": "My Personal Site",
   "version": "4.3.0",
   "author": "Incluud",
   "license": "MIT",
   "type": "module",
-  "homepage": "https://accessible-astro-starter.incluud.dev/",
+  "homepage": "https://nick-sohl.github.io",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -28,10 +28,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/incluud/accessible-astro-starter.git"
-  },
-  "bugs": {
-    "url": "https://github.com/incluud/accessible-astro-starter/issues"
+    "url": "git+https://github.com/nick-sohl/nick-sohl.github.io.git"
   },
   "devDependencies": {
     "@astrojs/mdx": "^4.3.5",
