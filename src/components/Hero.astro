@@ -22,33 +22,36 @@ const { src = '/astronaut-hero-img.webp' }: Props = Astro.props
   <div class="container">
     <div class="grid grid-cols-1 items-center gap-24 lg:grid-cols-2">
       <div class="flex flex-col items-center gap-8 md:items-start">
-        <h1 class="text-center text-6xl md:text-left lg:text-8xl">
-          <slot><span class="text-gradient">Accessible</span> Starter for Astro</slot>
+        <h1 class="text-6xl md:text-left lg:text-6xl">
+          <slot>
+            <span class="text-gradient">Code</span> ist meine Sprache
+          </slot>
         </h1>
-        <div class="flex flex-col gap-3 min-[500px]:flex-row">
+        <div class="w-full flex gap-3 flex-col sm:flex-row">
           <Link
-            href="https://github.com/incluud/accessible-astro-starter"
+            href="https://github.com/nick-sohl"
+            target="_blank"
             isButton
             type="primary"
             animateOnHover
             animationType="boop"
           >
-            <Icon aria-hidden="true" name="lucide:star" size="1.5rem" />
-            Star on GitHub
+            <Icon aria-hidden="true" name="lucide:github" size="1.5rem" />
+            Mein GitHub
           </Link>
           <Link
-            href="https://accessible-astro.incluud.dev/"
+              href="/about"
             isButton
             type="secondary"
             animateOnHover
             animationType="boop"
           >
-            <Icon aria-hidden="true" name="lucide:bookmark" size="1.5rem" />
-            Read the docs
+            <Icon aria-hidden="true" name="lucide:smile" size="1.5rem" />
+            About Me
           </Link>
         </div>
       </div>
-      <Image class="hidden lg:block" src={src} alt="" decoding="async" width={800} height={600} loading="eager" />
+      <!-- <Image class="hidden lg:block" src={src} alt="" decoding="async" width={800} height={600} loading="eager" /> -->
     </div>
   </div>
 </section>
