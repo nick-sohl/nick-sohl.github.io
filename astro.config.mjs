@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config'
+import { defineonfig } from 'astro/config'
 import { fileURLToPath } from 'url'
 import compress from 'astro-compress'
 import icon from 'astro-icon'
