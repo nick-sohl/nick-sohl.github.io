@@ -1,22 +1,51 @@
 ---
-import { fetchDataSource, getPageIdsFromSource, getPageContent } from '../api/fetch-data-source.js'
+import {
+  fetchDataSource,
+  getPageIdsFromSource,
+  getAllPagesById,
+  convertBlocksToMarkdown,
+  convertBlockToMarkdown,
+} from '../api/fetch-data-source.js'
+import BlockQuote from '../components/BlockQuote.astro'
 
-const data = await fetchDataSource()
-const dataResults = data.results
-const pageTitles = []
-const pageTitlesArray = data.results.map((page) =>
-  pageTitles.push(page.properties.Title.title.map((item) => item.text.content)),
-)
+// Get Page Ids from Data Source
 const pageIds = await getPageIdsFromSource()
 
-const pageContent = await Promise.all(pageIds.map((id) => getPageContent(id)))
-const arrOfBlocks = pageContent[0].results
+// Get Content of each Page with its ID
+const pages = await Promise.all(pageIds.map((id) => getAllPagesById(id)))
+const results = pages[0].results
+const pageResultArrays = pages.map((page) => page.results)
+
+const markdown = await convertBlocksToMarkdown(pageIds[0])
 ---
 
-<pre>{JSON.stringify(arrOfBlocks.map(block => block.type))}</pre>
-<pre>{JSON.stringify(pageTitles, null, 4)}</pre>
-<pre>{JSON.stringify(data.results.map(page => page.properties.Title.title.map(object => object.text.content)), null, 4)}</pre>
-<ul>{pageIds.map((id) => <li>{id}</li>)}</ul>
-<pre>
-  {JSON.stringify(pageContent, null, 4)}
-</pre>
+<div>{JSON.stringify(markdown)}</div>
+<!-- <pre>{JSON.stringify(pages, null, 4)}</pre> -->{
+  results.map((block) => {
+    switch (block.type) {
+      case 'heading_1':
+        const heading1 = block.heading_1.rich_text[0].plain_text
+        return <h1>{heading1}</h1>
+      case 'paragraph':
+        const paragraph = block.paragraph.rich_text.map((item) => item.plain_text)
+        return <p>{paragraph}</p>
+      case 'bulleted_list_item':
+        const arrOfListItems = block.bulleted_list_item.rich_text
+        return (
+          <ul>
+            {arrOfListItems.map((listItem: any) => (
+              <li>{listItem.plain_text}</li>
+            ))}
+          </ul>
+        )
+      case 'quote':
+        const text = block.quote.rich_text[0].plain_text
+        return <BlockQuote>{text}</BlockQuote>
+      case 'image':
+        const imageSource = block.image.file.url
+        return <img src={imageSource} alt="" />
+      default:
+        console.log(`No such block.`)
+    }
+  })
+}
